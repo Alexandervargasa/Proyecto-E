@@ -72,7 +72,6 @@
             transition: transform 0.3s ease, color 0.3s ease;
         }
 
-        /* Iconos generales */
         nav ul li a:hover i {
             color: #d59e0c;
         }
@@ -137,6 +136,14 @@
             border-left: 1px solid #ccc;
             padding-left: 15px;
         }
+
+        footer {
+            background: #544fc1;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
@@ -165,14 +172,62 @@
     </header>
 
     <main>
-        <section>
+        <section style="padding:40px; text-align:center;">
             <h2>Explora Proyectos Innovadores</h2>
             <p>Descubre los emprendimientos más recientes y apoya a los emprendedores.</p>
         </section>
-        <section>
+        <section style="padding:40px; text-align:center; background:#f9f9f9;">
             <h2>Únete a Nuestra Comunidad</h2>
             <p>Regístrate para compartir tus ideas y conectar con otros emprendedores.</p>
         </section>
+
+       <!-- CATEGORÍAS -->
+<section style="padding: 40px; text-align: center; background: #f9f9f9;">
+  <h2 style="margin-bottom: 30px;">Categorías de Emprendimientos</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px;">
+
+    <div>
+      <i class="fa-solid fa-palette" style="font-size:40px; color:#054d2e;"></i>
+      <p style="margin-top: 10px; font-weight: 500;">Arte y Diseño</p>
+    </div>
+
+    <div>
+      <i class="fa-solid fa-microchip" style="font-size:40px; color:#054d2e;"></i>
+      <p style="margin-top: 10px; font-weight: 500;">Tecnología</p>
+    </div>
+
+    <div>
+      <i class="fa-solid fa-concierge-bell" style="font-size:40px; color:#054d2e;"></i>
+      <p style="margin-top: 10px; font-weight: 500;">Servicios</p>
+    </div>
+
+    <div>
+      <i class="fa-solid fa-utensils" style="font-size:40px; color:#054d2e;"></i>
+      <p style="margin-top: 10px; font-weight: 500;">Alimentación</p>
+    </div>
+
+  </div>
+</section>
+
+
+        <!-- CALL TO ACTION -->
+        <section style="padding: 80px; text-align: center;
+    background: linear-gradient(135deg, #036d4a, #0b8f65); color: #ffffff;">
+
+  <h2 style="font-size: 2em; font-weight: bold; margin-bottom: 15px; color: #ffffff;">
+    ¿Tienes una idea innovadora?
+  </h2>
+
+  <p style="font-size: 1.2em; margin-bottom: 30px; color: #f1f1f1;">
+    Publica tu proyecto y conecta con otros estudiantes que creen en el cambio.
+  </p>
+
+  <a href="#" style="background:#ffffff; color:#054d2e; padding:12px 25px;
+     border-radius:30px; text-decoration:none; font-weight:bold;">
+    Regístrate Ahora
+  </a>
+</section>
+
     </main>
 
     <footer>

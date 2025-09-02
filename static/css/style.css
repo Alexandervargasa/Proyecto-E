@@ -10,7 +10,6 @@ body {
     animation: fadeIn 1s ease-in-out;
 }
 
-
 /* Animación de aparición */
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -56,11 +55,27 @@ nav ul li a {
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s, transform 0.3s;
+    position: relative;
+}
+
+/* Línea animada debajo del enlace */
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: #ffe082;
+    transition: width 0.3s;
+}
+nav ul li a:hover::after {
+    width: 100%;
 }
 
 nav ul li a:hover {
     color: #ffe082;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 /* =========================
@@ -90,7 +105,6 @@ nav ul li a:hover .fa-fire {
     75%  { transform: scale(1.15) rotate(-1deg); text-shadow: 0 0 15px #ff8a50, 0 0 25px #ff7043; }
     100% { transform: scale(1) rotate(0deg);   text-shadow: 0 0 5px #ff8a50, 0 0 10px #ff7043; }
 }
-
 
 /* 🎁 Recompensas → Se agita como si fuera a abrirse */
 nav ul li a:hover .fa-gift {
@@ -122,6 +136,7 @@ nav ul li a:hover .fa-gear {
 main {
     padding: 2rem;
     text-align: center;
+    padding-bottom: 4rem; /* evita que el footer tape contenido */
 }
 
 main h2 {
@@ -145,7 +160,7 @@ main p {
     width: 80%;
     max-width: 400px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .card:hover {
@@ -185,4 +200,22 @@ footer {
 .btn:hover {
     transform: scale(1.1);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin: 0.8rem 0;
+    }
+
+    .card {
+        width: 95%;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
 }
