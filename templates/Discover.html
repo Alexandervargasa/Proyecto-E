@@ -1,149 +1,45 @@
+{% extends "Base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Descubrir - Emprendimientos</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-    }
 
-    /* ===== HERO ===== */
-    .hero-discover {
-      background: linear-gradient(135deg, #036d4a, #0b8f65);
-      color: white;
-      text-align: center;
-      padding: 60px 20px;
-      border-radius: 0 0 20px 20px;
-    }
+{% block content %}
+<main>
+  <h2 class="titulo-seccion">Nuestros Productos</h2>
 
-    .hero-discover h1 {
-      font-size: 2.2em;
-      margin-bottom: 15px;
-    }
-
-    .hero-discover p {
-      font-size: 1.2em;
-      color: #f1f1f1;
-    }
-
-    /* ===== PRODUCTOS ===== */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      padding: 40px;
-    }
-
-    .product-card {
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.2s ease-in-out;
-    }
-
-    .product-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .product-card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-    }
-
-    .product-card .content {
-      padding: 20px;
-    }
-
-    .product-card h3 {
-      margin: 0 0 10px;
-      font-size: 1.2em;
-      color: #054d2e;
-    }
-
-    .product-card p {
-      font-size: 0.95em;
-      color: #444;
-    }
-
-    .btn-ver {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 16px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: bold;
-      background: #054d2e;
-      color: #fff;
-    }
-
-    .btn-ver:hover {
-      background: #d59e0c;
-      color: #fff;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: #544fc1;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- NAVBAR GLOBAL -->
-  {% include "navbar.html" %}
-
-  <!-- HERO -->
-  <section class="hero-discover">
-    <h1>Descubre Productos y Servicios</h1>
-    <p>Explora lo que otros estudiantes ofrecen en tecnología, arte, servicios y más.</p>
-  </section>
-
-  <!-- PRODUCTOS -->
-  <div class="product-grid">
-    <div class="product-card">
-      <img src="https://via.placeholder.com/400x200" alt="Laptop en arriendo">
-      <div class="content">
-        <h3>Alquiler de Laptop Gamer</h3>
-        <p>Laptops de alto rendimiento para estudio o trabajo por semana o mes.</p>
-        <a href="#" class="btn-ver">Ver más</a>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://via.placeholder.com/400x200" alt="Clases de guitarra">
-      <div class="content">
-        <h3>Clases de Guitarra</h3>
-        <p>Aprende desde cero con clases presenciales u online.</p>
-        <a href="#" class="btn-ver">Ver más</a>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://via.placeholder.com/400x200" alt="Menú saludable">
-      <div class="content">
-        <h3>Menú Saludable Semanal</h3>
-        <p>Comida casera y balanceada entregada a domicilio.</p>
-        <a href="#" class="btn-ver">Ver más</a>
-      </div>
-    </div>
+  <!-- Tabs (opcional, como en la tienda online) -->
+  <div class="tabs">
+    <button class="active">Destacados</button>
+    <button>Más Recientes</button>
+    <button>Mejores Vendidos</button>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 Plataforma de Emprendimientos. Todos los derechos reservados.</p>
-  </footer>
+  <div class="productos-container">
 
-</body>
-</html>
+    <div class="card">
+      <span class="badge">Nuevo</span>
+      <img src="{% static 'img/FondoB.png' %}" alt="Laptop gamer">
+      <h3>Alquiler de Laptop Gamer</h3>
+      <p>Laptops de alto rendimiento para estudio o trabajo.</p>
+      <span class="price">$50 / semana</span>
+      <a href="#" class="btn">Agregar al carrito</a>
+    </div>
+
+    <div class="card">
+      <span class="badge">-15%</span>
+      <img src="{% static 'img/Settings2.png' %}" alt="Clases de guitarra">
+      <h3>Clases de Guitarra</h3>
+      <p>Aprende desde cero con clases presenciales u online.</p>
+      <span class="price"><span class="descuento">$12</span> $10 / clase</span>
+      <a href="#" class="btn">Agregar al carrito</a>
+    </div>
+
+    <div class="card">
+      <img src="{% static 'img/logo.png' %}" alt="Menú saludable">
+      <h3>Menú Saludable Semanal</h3>
+      <p>Comida casera y balanceada entregada a domicilio.</p>
+      <span class="price">$25</span>
+      <a href="#" class="btn">Agregar al carrito</a>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

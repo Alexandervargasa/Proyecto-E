@@ -19,6 +19,26 @@ header h1 {
     letter-spacing: 2px;
 }
 
+/* ---------- LOGO ---------- */
+.logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    text-decoration: none; /* quita subrayado */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.logo:hover {
+    color: #fff1a8; /* cambia color al pasar */
+    transform: scale(1.05);
+}
+.logo img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* NAV LINKS */
 nav ul {
     list-style: none;
     padding: 0;

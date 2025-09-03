@@ -1,12 +1,15 @@
 {% load static %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <header>
-    <!-- Logo -->
-    <div class="logo">
+    <!-- Logo que lleva al home -->
+    <a href="{% url 'home' %}" class="logo">
         <img src="{% static 'img/logo.png' %}" alt="Logo">
         EmprendeApp
-    </div>
+    </a>
 
     <!-- Buscador -->
     <div class="search-bar">
@@ -16,7 +19,7 @@
     <!-- Navegación -->
     <nav>
         <ul>
-            <li><a href="#"><i class="fa-solid fa-compass"></i> Descubrir</a></li>
+            <li><a href="{% url 'discover' %}"><i class="fa-solid fa-compass"></i> Descubrir</a></li>
             <li><a href="#"><i class="fa-solid fa-fire"></i> Tendencia</a></li>
             <li><a href="#"><i class="fa-solid fa-gift"></i> Recompensas</a></li>
             <li class="icon-btn"><a href="#"><i class="fa-solid fa-gear"></i></a></li>
