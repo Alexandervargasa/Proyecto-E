@@ -1,237 +1,61 @@
 {% load static %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Inicio - Emprendimientos</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 30px;
-            border-bottom: 1px solid #ddd;
-            background: #fff;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            font-size: 20px;
-            color: #054d2e;
-        }
-
-        .logo img {
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        .search-bar {
-            flex: 1;
-            max-width: 500px;
-            margin: 0 40px;
-            position: relative;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ccc;
-            border-radius: 25px;
-            font-size: 14px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #054d2e;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        nav ul li a i {
-            font-size: 18px;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        nav ul li a:hover i {
-            color: #d59e0c;
-        }
-
-        /* 🔎 Descubrir → Zoom */
-        .fa-compass:hover {
-            animation: zoom 0.6s ease-in-out forwards;
-        }
-        @keyframes zoom {
-            0%,100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-
-        /* 🔥 Tendencia → Latiendo */
-        .fa-fire:hover {
-            animation: heartbeat 1s infinite;
-        }
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            25% { transform: scale(1.2); }
-            50% { transform: scale(0.9); }
-            75% { transform: scale(1.1); }
-        }
-
-        /* 🎁 Recompensas → Rebote */
-        .fa-gift:hover {
-            animation: bounce 0.8s ease infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-8px); }
-            60% { transform: translateY(-4px); }
-        }
-
-        /* Engranaje infinito */
-        .fa-gear:hover {
-            animation: spin 2s linear infinite;
-            color: #d59e0c;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .signin-btn {
-            background: #054d2e;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .signin-btn i {
-            font-size: 16px;
-        }
-
-        .icon-btn {
-            border-left: 1px solid #ccc;
-            padding-left: 15px;
-        }
-
-        footer {
-            background: #544fc1;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            margin-top: 40px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <!-- Logo -->
-        <div class="logo">
-            <img src="{% static 'img/logo.png' %}" alt="Logo">
-            EmprendeApp
-        </div>
 
-        <!-- Buscador -->
-        <div class="search-bar">
-            <input type="text" placeholder="Buscar proyectos, ideas, personas...">
-        </div>
-
-        <!-- Navegación -->
-        <nav>
-            <ul>
-                <li><a href="#"><i class="fa-solid fa-compass"></i> Descubrir</a></li>
-                <li><a href="#"><i class="fa-solid fa-fire"></i> Tendencia</a></li>
-                <li><a href="#"><i class="fa-solid fa-gift"></i> Recompensas</a></li>
-                <li class="icon-btn"><a href="#"><i class="fa-solid fa-gear"></i></a></li>
-                <li><a href="#" class="signin-btn"><i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Navbar -->
+    {% include "navbar.html" %}
 
     <main>
-        <section style="padding:40px; text-align:center;">
+
+        <!-- HERO -->
+        <section class="hero">
             <h2>Explora Proyectos Innovadores</h2>
             <p>Descubre los emprendimientos más recientes y apoya a los emprendedores.</p>
         </section>
-        <section style="padding:40px; text-align:center; background:#f9f9f9;">
+
+        <!-- INFO -->
+        <section class="info">
             <h2>Únete a Nuestra Comunidad</h2>
             <p>Regístrate para compartir tus ideas y conectar con otros emprendedores.</p>
         </section>
 
        <!-- CATEGORÍAS -->
-<section style="padding: 40px; text-align: center; background: #f9f9f9;">
-  <h2 style="margin-bottom: 30px;">Categorías de Emprendimientos</h2>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px;">
-
-    <div>
-      <i class="fa-solid fa-palette" style="font-size:40px; color:#054d2e;"></i>
-      <p style="margin-top: 10px; font-weight: 500;">Arte y Diseño</p>
+<section class="categorias">
+    <h2>Categorías de Emprendimientos</h2>
+    <div class="grid-categorias">
+        <div class="cat-item">
+            <i class="fa-solid fa-palette"></i>
+            <p>Arte y Diseño</p>
+        </div>
+        <div class="cat-item">
+            <i class="fa-solid fa-microchip"></i>
+            <p>Tecnología</p>
+        </div>
+        <div class="cat-item">
+            <i class="fa-solid fa-concierge-bell"></i>
+            <p>Servicios</p>
+        </div>
+        <div class="cat-item">
+            <i class="fa-solid fa-utensils"></i>
+            <p>Alimentación</p>
+        </div>
     </div>
-
-    <div>
-      <i class="fa-solid fa-microchip" style="font-size:40px; color:#054d2e;"></i>
-      <p style="margin-top: 10px; font-weight: 500;">Tecnología</p>
-    </div>
-
-    <div>
-      <i class="fa-solid fa-concierge-bell" style="font-size:40px; color:#054d2e;"></i>
-      <p style="margin-top: 10px; font-weight: 500;">Servicios</p>
-    </div>
-
-    <div>
-      <i class="fa-solid fa-utensils" style="font-size:40px; color:#054d2e;"></i>
-      <p style="margin-top: 10px; font-weight: 500;">Alimentación</p>
-    </div>
-
-  </div>
-</section>
-
-
-        <!-- CALL TO ACTION -->
-        <section style="padding: 80px; text-align: center;
-    background: linear-gradient(135deg, #036d4a, #0b8f65); color: #ffffff;">
-
-  <h2 style="font-size: 2em; font-weight: bold; margin-bottom: 15px; color: #ffffff;">
-    ¿Tienes una idea innovadora?
-  </h2>
-
-  <p style="font-size: 1.2em; margin-bottom: 30px; color: #f1f1f1;">
-    Publica tu proyecto y conecta con otros estudiantes que creen en el cambio.
-  </p>
-
-  <a href="#" style="background:#ffffff; color:#054d2e; padding:12px 25px;
-     border-radius:30px; text-decoration:none; font-weight:bold;">
-    Regístrate Ahora
-  </a>
 </section>
 
     </main>
 
-    <footer>
-        <p>&copy; 2025 Plataforma de Emprendimientos. Todos los derechos reservados.</p>
-    </footer>
+    <!-- Footer -->
+    {% include "footer.html" %}
+
 </body>
 </html>

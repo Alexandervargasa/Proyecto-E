@@ -1,0 +1,105 @@
+/* =========================
+   HEADER Y NAVBAR
+========================= */
+header {
+    background: linear-gradient(90deg, #ffb6c1, #a3d8f4);
+    color: white;
+    padding: 1.2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: slideDown 1s ease-in-out;
+}
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+}
+nav ul li {
+    display: inline-block;
+    margin: 0 1rem;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+    position: relative;
+}
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: #fff1a8;
+    transition: width 0.3s;
+}
+nav ul li a:hover::after { width: 100%; }
+nav ul li a:hover {
+    color: #fff1a8;
+    transform: scale(1.05);
+}
+
+/* ICONOS CON ANIMACIONES */
+nav ul li a:hover .fa-compass { animation: zoomIn 0.6s ease-in-out infinite alternate; color: #a3d8f4; }
+@keyframes zoomIn { from { transform: scale(1);} to { transform: scale(1.3);} }
+
+nav ul li a:hover .fa-fire { animation: flamePulse 1s infinite; color: #ff7eb3; }
+@keyframes flamePulse {
+    0% { transform: scale(1); text-shadow: 0 0 5px #ff9aa2; }
+    50% { transform: scale(1.25) rotate(2deg); text-shadow: 0 0 20px #ff7eb3; }
+    100% { transform: scale(1); text-shadow: 0 0 5px #ff9aa2; }
+}
+
+nav ul li a:hover .fa-gift { animation: shake 0.6s infinite; color: #cdb4db; }
+@keyframes shake {
+    0% { transform: rotate(0); } 20% { transform: rotate(-8deg);} 40% { transform: rotate(8deg);}
+    100% { transform: rotate(0); }
+}
+
+nav ul li a:hover .fa-gear { animation: spin 1.2s linear infinite; color: #b9fbc0; }
+@keyframes spin { from { transform: rotate(0);} to { transform: rotate(360deg);} }
+
+/* =========================
+   BARRA DE BÚSQUEDA
+========================= */
+.search-bar {
+    display: inline-block;
+    margin-left: 1.5rem;
+}
+.search-bar form {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 25px;
+    padding: 3px 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 6px 10px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    width: 160px;
+}
+.search-bar button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #ff7eb3;
+    font-size: 1rem;
+    transition: transform 0.2s;
+}
+.search-bar button:hover { transform: scale(1.2); }
