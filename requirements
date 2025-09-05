@@ -2,4 +2,5 @@ asgiref==3.9.1
 Django==5.2.5
 psycopg2==2.9.10
 sqlparse==0.5.3
-tzdata==2025.2   # (solo en Windows normalmente)
+tzdata==2025.2   # Solo en Windows normalmente
+python-decouple==3.8
