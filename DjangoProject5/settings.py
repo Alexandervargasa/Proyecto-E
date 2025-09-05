@@ -14,6 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'usuarios',
 ]
 
 MIDDLEWARE = [
@@ -46,13 +47,18 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = 'DjangoProject5.wsgi.application'
-
+#recuerden cambiar esto #
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Proyecto_E',
+        'USER': 'postgres',   # el usuario que configuraste
+        'PASSWORD': '50922002',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
 
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'UTC'
