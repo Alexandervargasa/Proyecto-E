@@ -1,10 +1,11 @@
 from pathlib import Path
+from decouple import config  # 👈 importa decouple
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-fne*6352-lu=89e=iplq&$c96e86m1yq1ua#c@xy!b7b$%5b5w'
+SECRET_KEY = config("SECRET_KEY", default="changeme")  # puedes mover también tu secret aquí
+DEBUG = config("DEBUG", default=True, cast=bool)
 
-DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
@@ -32,46 +33,42 @@ ROOT_URLCONF = 'DjangoProject5.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Carpeta templates en la raíz
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.static',  # 👈 Necesario para {% static %}
+                'django.template.context_processors.static',
             ],
         },
     },
 ]
 
-
 WSGI_APPLICATION = 'DjangoProject5.wsgi.application'
-#recuerden cambiar esto #
+
+# 👇 Carga de DB desde .env
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Proyecto_E',
-        'USER': 'postgres',   # el usuario que configuraste
-        'PASSWORD': '50922002',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config("DB_NAME"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
+        'HOST': config("DB_HOST"),
+        'PORT': config("DB_PORT"),
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
-
 
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-
-]
-
-
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
