@@ -23,7 +23,20 @@
             <li><a href="#"><i class="fa-solid fa-fire"></i> Tendencia</a></li>
             <li><a href="#"><i class="fa-solid fa-gift"></i> Recompensas</a></li>
             <li class="icon-btn"><a href="#"><i class="fa-solid fa-gear"></i></a></li>
-            <li><a href="#" class="signin-btn"><i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión</a></li>
+            {% if user.is_authenticated %}
+    <li>
+        <a href="{% url 'logout' %}" class="signin-btn" style="background:#d9534f; color:white;">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+        </a>
+    </li>
+{% else %}
+    <li>
+        <a href="{% url 'login' %}" class="signin-btn">
+            <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
+        </a>
+    </li>
+{% endif %}
+
         </ul>
     </nav>
 </header>
