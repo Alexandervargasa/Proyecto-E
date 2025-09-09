@@ -8,8 +8,7 @@ A continuación, encontrarás los pasos necesarios para clonar y ejecutar el pro
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/eldux123/PruebaInterfaz.git
-cd PruebaInterfaz
+git clone -b PageDev https://github.com/Alexandervargasa/Proyecto-E.git
 
 2. Crear y activar un entorno virtual
 python -m venv venv
