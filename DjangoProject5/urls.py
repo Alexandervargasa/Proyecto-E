@@ -13,5 +13,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('discover/', discover, name='discover'),
     path('usuarios/', include("usuarios.urls")),  # 👈 ahora van bajo /usuarios/
+
+path('ia/', include('ia.urls')),
 ]
 

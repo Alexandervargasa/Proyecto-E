@@ -13,3 +13,4 @@ __pycache__/
 Thumbs.db
 .coverage
 htmlcov/
+openai.env

@@ -1,5 +1,8 @@
 from pathlib import Path
 from decouple import config  # 👈 importa decouple
+import os
+from dotenv import load_dotenv  # 👈 importa dotenv
+load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, 'openai.env'))
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -16,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'usuarios',
+    'ia',
     "crispy_forms",
     "crispy_bootstrap5",
 ]
