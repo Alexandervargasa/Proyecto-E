@@ -12,7 +12,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('discover/', discover, name='discover'),
-    path('usuarios/', include("usuarios.urls")),  # 👈 ahora van bajo /usuarios/
+    path('usuarios/', include("usuarios.urls")),
+    path('productos/', include('productos.urls')),
 
 path('ia/', include('ia.urls')),
 ]

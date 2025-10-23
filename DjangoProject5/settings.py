@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'ia',
     "crispy_forms",
     "crispy_bootstrap5",
+    "productos",
 ]
 
 MIDDLEWARE = [
