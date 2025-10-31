@@ -12,3 +12,5 @@ python-dotenv
 openai
 google-generativeai
 django-widget-tweaks
+widget-tweaks==1.4.12
+pillow==10.1.0
