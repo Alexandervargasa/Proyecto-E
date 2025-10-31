@@ -11,3 +11,4 @@ requests
 python-dotenv
 openai
 google-generativeai
+django-widget-tweaks

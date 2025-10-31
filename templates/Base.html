@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
     <meta charset="UTF-8">
     <title>{% block title %}EmprendeApp{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -39,5 +41,13 @@
         });
     });
     </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 700,   // Duración en milisegundos
+    once: true       // Solo anima una vez al hacer scroll
+  });
+</script>
+
 </body>
 </html>
