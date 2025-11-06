@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-
+from .models import PerfilUsuario
 from .forms import RegistroForm
 
 
@@ -15,7 +15,9 @@ def register(request):
     if request.method == "POST":
         form = RegistroForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            # Crear perfil automáticamente
+            PerfilUsuario.objects.create(user=user, rol='cliente')
             messages.success(request, "¡Tu cuenta ha sido creada con éxito! ✅")
             return redirect("login")  # Después de registrarse va al login
     else:

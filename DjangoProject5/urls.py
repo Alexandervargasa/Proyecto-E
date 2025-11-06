@@ -4,16 +4,16 @@ from django.shortcuts import render
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from productos.views import discover, tendencias
+
 def home(request):
     return render(request, 'home.html')
-
-def discover(request):
-    return render(request, 'discover.html')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('discover/', discover, name='discover'),
+    path('tendencias/', tendencias, name='tendencias'),
     path('usuarios/', include("usuarios.urls")),
     path('productos/', include('productos.urls')),
 

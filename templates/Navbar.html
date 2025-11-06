@@ -8,18 +8,30 @@
     <span class="logo-text">EmprendeApp</span>
   </a>
 
-  <!-- Barra de búsqueda -->
-  <div class="search-bar">
-    <input type="text" placeholder="Buscar proyectos, ideas, personas...">
-  </div>
+  <!-- Barra de búsqueda (solo en discover) -->
+  {% if request.resolver_match.url_name == 'discover' %}
+  <form method="GET" action="{% url 'discover' %}" class="search-bar">
+    <input type="text" name="q" value="{{ query }}" placeholder="Buscar productos...">
+    <button type="submit"><i class="fa-solid fa-search"></i></button>
+  </form>
+  {% else %}
+  <div class="search-bar-placeholder"></div>
+  {% endif %}
 
   <!-- Navegación -->
   <nav>
     <ul>
       <li><a href="{% url 'discover' %}"><i class="fa-solid fa-compass"></i> Descubrir</a></li>
-      <li><a href="#"><i class="fa-solid fa-fire"></i> Tendencia</a></li>
+      <li><a href="{% url 'tendencias' %}"><i class="fa-solid fa-fire"></i> Tendencia</a></li>
       <li><a href="#"><i class="fa-solid fa-gift"></i> Recompensas</a></li>
-      <li class="icon-btn"><a href="#"><i class="fa-solid fa-gear"></i></a></li>
+      
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'agregar_producto' %}"><i class="fa-solid fa-plus-circle"></i> Añadir Productos</a></li>
+      {% endif %}
+      
+      {% if user.is_authenticated and user.perfil.es_admin %}
+      <li class="icon-btn"><a href="/admin/" target="_blank"><i class="fa-solid fa-gear"></i></a></li>
+      {% endif %}
 
       {% if user.is_authenticated %}
       <li>
@@ -80,14 +92,46 @@
     flex: 1;
     max-width: 500px;
     margin: 10px 40px;
+    display: flex;
+    gap: 8px;
   }
 
   .search-bar input {
-    width: 100%;
+    flex: 1;
     padding: 10px 15px;
     border: none;
     border-radius: 25px;
     font-size: 14px;
+    color: #333;
+    background: white;
+  }
+
+  .search-bar input::placeholder {
+    color: #999;
+  }
+
+  .search-bar button {
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: #036d4a;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .search-bar button:hover {
+    background: #d59e0c;
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .search-bar-placeholder {
+    flex: 1;
+    max-width: 500px;
+    margin: 10px 40px;
   }
 
   /* Navegación */
@@ -128,13 +172,16 @@
   .fa-gift:hover { animation: bounce 0.8s ease infinite; }
   @keyframes bounce { 0%,100% { transform: translateY(0); } 30% { transform: translateY(-8px); } 60% { transform: translateY(-4px); } }
 
+  .fa-plus-circle:hover { animation: rotate-pulse 0.8s ease-in-out infinite; }
+  @keyframes rotate-pulse { 0%,100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.2); } }
+
   .fa-gear:hover { animation: spin 2s linear infinite; color: #d59e0c; }
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
   /* Botones */
   .signin-btn {
-    background: white;
-    color: #054d2e;
+    background: #0b8f65;
+    color: white;
     padding: 8px 16px;
     border-radius: 20px;
     text-decoration: none;
@@ -146,7 +193,7 @@
   }
 
   .signin-btn:hover {
-    background: #d59e0c;
+    background: #036d4a;
     color: white;
   }
 

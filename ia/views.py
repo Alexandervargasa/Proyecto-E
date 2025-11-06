@@ -23,32 +23,43 @@ def chat_view(request):
             if not user_message:
                 return JsonResponse({"reply": "⚠️ No se recibió ningún mensaje."})
 
-            # Obtener productos
+            # 🔹 Obtener todos los productos de la base de datos
             productos = Producto.objects.all()
-            # 🔹 Obtener productos
-            productos = Producto.objects.all()
+            
+            if productos.exists():
+                catalogo = "📦 **PRODUCTOS DISPONIBLES EN NUESTRA TIENDA:**\n\n"
+                for p in productos:
+                    catalogo += f"• **{p.nombre}**\n"
+                    if p.descripcion:
+                        catalogo += f"  📝 {p.descripcion}\n"
+                    catalogo += f"  💰 Precio: ${p.precio:,.0f} COP\n"
+                    catalogo += f"  📦 Stock: {p.stock} unidades\n"
+                    if p.categoria:
+                        catalogo += f"  🏷️ Categoría: {p.categoria}\n"
+                    if p.marca:
+                        catalogo += f"  🏭 Marca: {p.marca}\n"
+                    catalogo += "\n"
+            else:
+                catalogo = "⚠️ Actualmente no hay productos registrados en la tienda."
 
-            catalogo = "\n".join([
-                f"- {p.nombre or 'No tiene especificado'} | "
-                f"{p.descripcion or 'No tiene especificado'} | "
-                f"Precio: ${p.precio if p.precio else 'No tiene especificado'} | "
-                f"Stock: {p.stock if p.stock else 'No tiene especificado'} | "
-                f"Categoría: {p.categoria or 'No tiene especificado'} | "
-                f"Marca: {p.marca or 'No tiene especificado'}"
-                for p in productos
-            ])
-
-            # Prompt mejorado y más breve
+            # Prompt mejorado para el chatbot
             prompt = f"""
-Eres un asistente de compras amable y directo. 
-Responde solo a lo que te pregunten con respuestas cortas (máx. 2 líneas) 
-y puedes sugerir productos del catálogo si es relevante.
+Eres un asistente de ventas profesional y amigable de EmprendeApp. 
+Tu trabajo es ayudar a los clientes a encontrar los productos perfectos para sus necesidades.
 
-Catálogo disponible:
+IMPORTANTE:
+- Responde de forma clara, concisa y amigable (máximo 3-4 líneas por respuesta)
+- Si te preguntan por productos, recomienda basándose SOLO en el catálogo real
+- Si un producto no está en el catálogo, di que no lo tienes disponible
+- Puedes recomendar productos según necesidades (ej: "para trabajar", "para el hogar", etc.)
+- Sé específico con precios, marcas y características
+- Usa emojis para hacer la conversación más amena
+
 {catalogo}
 
-Usuario: {user_message}
-Respuesta:
+Pregunta del cliente: {user_message}
+
+Respuesta (máximo 3-4 líneas):
 """
 
             model = genai.GenerativeModel("models/gemini-2.0-flash-exp")
