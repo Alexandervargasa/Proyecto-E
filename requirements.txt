@@ -2,10 +2,12 @@ asgiref==3.8.1
 certifi==2024.2.2
 charset-normalizer==3.3.2
 colorama==0.4.6
+crispy-bootstrap5==0.7
 Django==4.2.11
 django-crispy-forms==2.1
 django-widget-tweaks==1.5.0
 google-generativeai==0.3.2
+gunicorn==21.2.0
 idna==3.6
 pillow==10.2.0
 psycopg2-binary==2.9.9
