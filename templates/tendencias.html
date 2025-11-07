@@ -65,8 +65,14 @@
             
             {% if user.is_authenticated %}
               {% if user.perfil.es_admin or producto.usuario == user %}
+                <a href="{% url 'editar_producto' producto.id %}" 
+                   class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition flex items-center justify-center"
+                   title="Editar producto">
+                  <i class="fas fa-edit"></i>
+                </a>
                 <a href="{% url 'eliminar_producto' producto.id %}" 
-                   class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition flex items-center justify-center">
+                   class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition flex items-center justify-center"
+                   title="Eliminar producto">
                   <i class="fas fa-trash"></i>
                 </a>
               {% endif %}
@@ -302,39 +308,34 @@
 
 <script>
   function agregarAlCarrito(productoId, nombreProducto) {
-    {% if user.is_authenticated %}
-      fetch(`/productos/carrito/${productoId}/`, {
-        method: 'POST',
-        headers: {
-          'X-CSRFToken': '{{ csrf_token }}',
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          document.getElementById('mensajeProducto').textContent = 
-            `"${data.nombre_producto}" ha sido agregado a tu carrito.`;
-          document.getElementById('numeroVendedor').textContent = data.numero_vendedor;
-          
-          // Crear enlace de WhatsApp
-          const numero = data.numero_vendedor.replace(/[^0-9]/g, '');
-          const mensaje = encodeURIComponent(`Hola, estoy interesado en el producto: ${data.nombre_producto}`);
-          document.getElementById('linkWhatsApp').href = 
-            `https://wa.me/${numero}?text=${mensaje}`;
-          
-          // Mostrar modal
-          document.getElementById('modalVendedor').classList.remove('hidden');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Hubo un error al agregar el producto al carrito');
-      });
-    {% else %}
-      alert('Debes iniciar sesión para agregar productos al carrito');
-      window.location.href = "{% url 'login' %}";
-    {% endif %}
+    fetch(`/productos/carrito/${productoId}/`, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        document.getElementById('mensajeProducto').textContent = 
+          `"${data.nombre_producto}" ha sido agregado a tu carrito.`;
+        document.getElementById('numeroVendedor').textContent = data.numero_vendedor;
+        
+        // Crear enlace de WhatsApp
+        const numero = data.numero_vendedor.replace(/[^0-9]/g, '');
+        const mensaje = encodeURIComponent(`Hola, estoy interesado en el producto: ${data.nombre_producto}`);
+        document.getElementById('linkWhatsApp').href = 
+          `https://wa.me/${numero}?text=${mensaje}`;
+        
+        // Mostrar modal
+        document.getElementById('modalVendedor').classList.remove('hidden');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Hubo un error al agregar el producto al carrito');
+    });
   }
 
   function cerrarModal() {

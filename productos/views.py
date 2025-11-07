@@ -32,9 +32,8 @@ def tendencias(request):
     productos = Producto.objects.prefetch_related('imagenes').filter(clics_carrito__gt=0).order_by('-clics_carrito')[:10]
     return render(request, 'tendencias.html', {'productos': productos})
 
-@login_required
 def agregar_al_carrito(request, producto_id):
-    """Incrementa el contador de clics y devuelve el número del vendedor"""
+    """Incrementa el contador de clics y devuelve el número del vendedor - No requiere login"""
     producto = get_object_or_404(Producto, id=producto_id)
     
     # Incrementar contador
@@ -81,6 +80,53 @@ def agregar_producto(request):
     return render(request, 'AgregarProductos.html', {
         'form': form,
         'formset': formset
+    })
+
+@login_required
+def editar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    
+    # Verificar permisos
+    es_admin = hasattr(request.user, 'perfil') and request.user.perfil.es_admin()
+    es_propietario = producto.usuario == request.user
+    
+    if not (es_admin or es_propietario):
+        messages.error(request, "❌ No tienes permisos para editar este producto.")
+        return redirect('discover')
+    
+    ImagenFormSet = modelformset_factory(ImagenProducto, fields=('imagen',), extra=3, can_delete=True)
+    
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        formset = ImagenFormSet(request.POST, request.FILES, queryset=producto.imagenes.all())
+        
+        if form.is_valid() and formset.is_valid():
+            producto = form.save()
+            
+            # Manejar imágenes
+            for imagen_form in formset.cleaned_data:
+                if imagen_form and not imagen_form.get('DELETE'):
+                    if 'imagen' in imagen_form:
+                        ImagenProducto.objects.create(
+                            producto=producto,
+                            imagen=imagen_form['imagen']
+                        )
+            
+            # Eliminar imágenes marcadas para borrar
+            for form_imagen in formset.deleted_forms:
+                if form_imagen.instance.pk:
+                    form_imagen.instance.delete()
+            
+            messages.success(request, "✅ Producto actualizado exitosamente!")
+            return redirect('discover')
+    else:
+        form = ProductoForm(instance=producto)
+        formset = ImagenFormSet(queryset=producto.imagenes.all())
+    
+    return render(request, 'editar_producto.html', {
+        'form': form,
+        'formset': formset,
+        'producto': producto
     })
 
 @login_required
