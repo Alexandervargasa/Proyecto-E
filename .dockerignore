@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+openai.env
+.git/
+media/
+db.sqlite3
+node_modules/
+*.log

@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    command: /app/entrypoint.sh
+    volumes:
+      - ./:/app
+      - media_data:/app/media
+    ports:
+      - "8000:8000"
+    env_file:
+      - openai.env
+    depends_on: []
+
+  # Optional Postgres service (recommended for production). If you want to use it,
+  # uncomment the service below and update `DjangoProject5/settings.py` to use
+  # DATABASES from env vars.
+  # db:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     - POSTGRES_DB=proyecto_e
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  media_data:
+  # postgres_data:
