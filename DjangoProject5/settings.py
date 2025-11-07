@@ -2,14 +2,20 @@ from pathlib import Path
 from decouple import config  # 👈 importa decouple
 import os
 from dotenv import load_dotenv  # 👈 importa dotenv
+import dj_database_url
+
+# Load .env used for local/dev secrets (openai.env is gitignored)
 load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, 'openai.env'))
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY", default="changeme")  # puedes mover también tu secret aquí
-DEBUG = config("DEBUG", default=True, cast=bool)
+# By default in production DEBUG should be False
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = ['54.160.195.196', 'localhost', '127.0.0.1', 'proyecto-e.onrender.com', '.onrender.com']
+# Read ALLOWED_HOSTS from env to make deployments (Render/Heroku) configurable
+raw_allowed = config('ALLOWED_HOSTS', default='54.160.195.196,localhost,127.0.0.1,proyecto-e.onrender.com,.onrender.com')
+ALLOWED_HOSTS = [h.strip() for h in raw_allowed.split(',') if h.strip()]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -57,12 +63,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DjangoProject5.wsgi.application'
 
-# 👇 Base de datos SQLite (por defecto de Django)
+# Database configuration
+# Default to local SQLite but allow DATABASE_URL override (Postgres on Render)
+default_sqlite = f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(config('DATABASE_URL', default=default_sqlite), conn_max_age=600)
 }
 
 LANGUAGE_CODE = 'es'
