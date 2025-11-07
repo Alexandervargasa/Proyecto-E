@@ -1,0 +1,16 @@
+asgiref==3.9.1
+Django==5.2.5
+psycopg2==2.9.10
+sqlparse==0.5.3
+tzdata==2025.2
+python-decouple==3.8
+django-crispy-forms==2.3
+crispy-bootstrap5==2024.2
+numpy==1.26.4
+requests
+python-dotenv
+openai
+google-generativeai
+django-widget-tweaks
+widget-tweaks==1.4.12
+pillow==10.1.0

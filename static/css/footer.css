@@ -1,0 +1,13 @@
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background: linear-gradient(90deg, #cdb4db, #fff1a8);
+    color: #333;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    animation: fadeIn 2s ease-in-out;
+}

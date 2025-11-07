@@ -1,0 +1,116 @@
+/* =========================
+   SECCIÓN PRODUCTOS
+========================= */
+.titulo-seccion {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Tabs arriba */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}a
+
+.tabs button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 20px;
+  background: #f5ebdc;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.tabs button.active,
+.tabs button:hover {
+  background: linear-gradient(90deg, #48c9b0, #16a085); /* Verde menta degradado */
+  color: white;
+}
+
+/* Contenedor grid */
+.productos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+  justify-items: center;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 240px;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.card img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+/* Badge */
+.badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #48c9b0; /* Verde menta */
+  color: white;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+}
+
+/* Texto */
+.card h3 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+/* Precio */
+.price {
+  font-weight: bold;
+  color: #16a085; /* Verde más oscuro para destacar */
+  margin-right: 0.5rem;
+}
+
+/* Botón */
+.card .btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(90deg, #48c9b0, #16a085);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.card .btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  color: #fff;
+}

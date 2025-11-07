@@ -1,0 +1,210 @@
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+/* === Chat Asistente IA (Estilo EmprendeApp) === */
+#chat-toggle {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #007a4d;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  z-index: 2000;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+#chat-toggle:hover {
+  transform: scale(1.1);
+  background: #005f3a;
+}
+
+#chat-box {
+  position: fixed;
+  bottom: 100px;
+  right: 25px;
+  width: 360px;
+  max-height: 520px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2000;
+  transition: all 0.3s ease-in-out;
+}
+#chat-box.hidden {
+  display: none;
+}
+
+/* Cabecera */
+.chat-header {
+  background: #007a4d;
+  color: #fff;
+  padding: 14px 18px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #005f3a;
+}
+.chat-header span {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Mensajes */
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background: #fdf7ef;
+}
+.chat-message {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+}
+.chat-message.user {
+  justify-content: flex-end;
+}
+.chat-bubble {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.chat-message.user .chat-bubble {
+  background: #e8f5ee;
+  color: #003d26;
+  border-bottom-right-radius: 5px;
+}
+.chat-message.bot .chat-bubble {
+  background: #ffffff;
+  color: #333;
+  border: 1px solid #e6e6e6;
+  border-bottom-left-radius: 5px;
+}
+
+/* Entrada de texto */
+.chat-input {
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  display: flex;
+  background: #fff;
+}
+.chat-input input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition: border 0.2s ease;
+}
+.chat-input input:focus {
+  border-color: #007a4d;
+}
+.chat-input button {
+  background: #007a4d;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  margin-left: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.chat-input button:hover {
+  background: #005f3a;
+}
+
+/* Scroll suave */
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 8px;
+}
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+</style>
+
+<!-- Botón flotante -->
+<button id="chat-toggle" title="Asistente IA">
+  <i class="bi bi-robot"></i>
+</button>
+
+<!-- Caja de chat -->
+<div id="chat-box" class="hidden">
+  <div class="chat-header">
+    <div><i class="bi bi-stars me-2"></i>Asistente IA</div>
+    <span id="close-chat">&times;</span>
+  </div>
+  <div id="chat-messages" class="chat-messages"></div>
+  <div class="chat-input">
+    <input type="text" id="user-input" placeholder="Escribe tu mensaje..." />
+    <button id="send-btn"><i class="bi bi-send-fill"></i></button>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("chat-toggle");
+  const chatBox = document.getElementById("chat-box");
+  const closeChat = document.getElementById("close-chat");
+  const messages = document.getElementById("chat-messages");
+  const input = document.getElementById("user-input");
+  const sendBtn = document.getElementById("send-btn");
+
+  toggle.onclick = () => chatBox.classList.toggle("hidden");
+  closeChat.onclick = () => chatBox.classList.add("hidden");
+
+  async function sendMessage() {
+    const message = input.value.trim();
+    if (!message) return;
+    addMessage("user", message);
+    input.value = "";
+
+    try {
+      const response = await fetch("/ia/chat/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ message })
+      });
+      const data = await response.json();
+      addMessage("bot", data.reply || "No pude procesar tu mensaje.");
+    } catch (err) {
+      addMessage("bot", "⚠️ Error al conectar con la IA.");
+    }
+  }
+
+  function addMessage(sender, text) {
+    const div = document.createElement("div");
+    div.classList.add("chat-message", sender);
+    div.innerHTML = `<div class="chat-bubble">${text}</div>`;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  sendBtn.onclick = sendMessage;
+  input.addEventListener("keypress", e => {
+    if (e.key === "Enter") sendMessage();
+  });
+});
+</script>

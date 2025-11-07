@@ -1,0 +1,25 @@
+/* =========================
+   TRANSICIONES ENTRE PÁGINAS
+========================= */
+
+/* Estado de entrada */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.6s forwards;
+}
+
+/* Estado de salida */
+.fade-out {
+    opacity: 1;
+    animation: fadeOut 0.6s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

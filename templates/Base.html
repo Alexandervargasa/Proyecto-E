@@ -1,0 +1,53 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/PCards.css' %}">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title>{% block title %}EmprendeApp{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/transitions.css' %}">
+</head>
+<body class="fade-in">
+
+    {% include "navbar.html" %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- 💬 Chat dinámico -->
+    {% include "ia/chat.html" %}
+
+    {% include "footer.html" %}
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", e => {
+                if (link.href && !link.href.startsWith("#") && !link.target) {
+                    e.preventDefault();
+                    document.body.classList.add("fade-out");
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 600);
+                }
+            });
+        });
+    });
+    </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 700,   // Duración en milisegundos
+    once: true       // Solo anima una vez al hacer scroll
+  });
+</script>
+
+</body>
+</html>
