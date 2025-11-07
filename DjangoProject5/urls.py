@@ -9,11 +9,15 @@ from productos.views import discover, tendencias
 def home(request):
     return render(request, 'home.html')
 
+def recompensas(request):
+    return render(request, 'recompensas.html')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('discover/', discover, name='discover'),
     path('tendencias/', tendencias, name='tendencias'),
+    path('recompensas/', recompensas, name='recompensas'),
     path('usuarios/', include("usuarios.urls")),
     path('productos/', include('productos.urls')),
 

@@ -60,7 +60,7 @@
           <div class="mt-4 flex gap-2">
             <button onclick="agregarAlCarrito({{ producto.id }}, '{{ producto.nombre }}')" 
                     class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-2 px-4 rounded-lg transition shadow-md">
-              🛒 Añadir al carrito
+              Contactar
             </button>
             
             {% if user.is_authenticated %}
@@ -93,17 +93,12 @@
 <!-- Modal para mostrar número del vendedor -->
 <div id="modalVendedor" class="modal-overlay hidden">
   <div class="modal-content">
-    <div class="modal-header">
-      <div class="header-icon">
-        <i class="fas fa-check-circle"></i>
-      </div>
-      <button onclick="cerrarModal()" class="close-btn">&times;</button>
-    </div>
     <div class="modal-body">
-      <h3 class="modal-title">¡Producto Agregado!</h3>
-      <p class="modal-subtitle" id="mensajeProducto"></p>
-      
       <div class="contact-section">
+        <button onclick="cerrarModal()" class="close-btn">&times;</button>
+        <h3 class="modal-title">¡Excelente Opción!</h3>
+        <p class="modal-subtitle" id="mensajeProducto"></p>
+        
         <div class="contact-icon">
           <i class="fab fa-whatsapp"></i>
         </div>
@@ -124,12 +119,18 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   .modal-overlay.hidden {
@@ -137,66 +138,51 @@
   }
 
   .modal-content {
-    background: white;
-    border-radius: 24px;
+    background: transparent;
+    border-radius: 32px;
     width: 90%;
-    max-width: 520px;
-    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
-    animation: slideDown 0.4s ease;
-    overflow: hidden;
+    max-width: 480px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+    animation: modalPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: visible;
+    position: relative;
   }
 
-  @keyframes slideDown {
-    from {
-      transform: translateY(-80px) scale(0.9);
+  @keyframes modalPop {
+    0% {
+      transform: scale(0.5) translateY(-100px);
       opacity: 0;
     }
-    to {
-      transform: translateY(0) scale(1);
+    100% {
+      transform: scale(1) translateY(0);
       opacity: 1;
     }
   }
 
-  .modal-header {
-    padding: 30px;
-    background: linear-gradient(135deg, #10b981, #059669);
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .header-icon {
-    width: 80px;
-    height: 80px;
+  .modal-body {
+    padding: 0;
     background: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    animation: bounceIn 0.6s ease;
   }
 
-  .header-icon i {
-    font-size: 40px;
-    color: #10b981;
-  }
-
-  @keyframes bounceIn {
-    0% { transform: scale(0); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+  .contact-section {
+    background: #ecfdf5;
+    border: 3px solid #10b981;
+    border-radius: 32px;
+    padding: 35px 30px;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
   }
 
   .close-btn {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    width: 36px;
-    height: 36px;
+    background: rgba(16, 185, 129, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid #10b981;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -206,42 +192,51 @@
     font-size: 24px;
     line-height: 1;
     padding: 0;
-    color: white;
+    color: #059669;
+    font-weight: bold;
+    z-index: 10;
   }
 
   .close-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: rotate(90deg);
-  }
-
-  .modal-body {
-    padding: 40px 35px;
-    background: white;
-    text-align: center;
+    background: #10b981;
+    transform: rotate(90deg) scale(1.1);
+    border-color: #059669;
+    color: white;
   }
 
   .modal-title {
     font-size: 28px;
-    font-weight: 800;
+    font-weight: 700;
     color: #1f2937;
-    margin-bottom: 12px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin-bottom: 15px;
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.3px;
+    text-align: center;
   }
 
   .modal-subtitle {
-    font-size: 16px;
+    font-size: 15px;
     color: #6b7280;
     margin-bottom: 30px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-weight: 500;
+    text-align: center;
   }
 
   .contact-section {
-    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    background: #ecfdf5;
     border: 3px solid #10b981;
     border-radius: 20px;
     padding: 35px 30px;
     box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .contact-section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(16, 185, 129, 0.25);
+    border-color: #059669;
   }
 
   .contact-icon {
@@ -263,21 +258,22 @@
 
   .contact-label {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     color: #059669;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   .contact-number {
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 900;
     color: #047857;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .whatsapp-btn {
@@ -285,24 +281,54 @@
     background: linear-gradient(135deg, #25D366, #128C7E);
     color: white;
     font-weight: 700;
-    font-size: 16px;
-    padding: 14px 32px;
-    border-radius: 12px;
+    font-size: 18px;
+    padding: 18px 40px;
+    border-radius: 16px;
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .whatsapp-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .whatsapp-btn:hover::before {
+    width: 400px;
+    height: 400px;
   }
 
   .whatsapp-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-    background: linear-gradient(135deg, #128C7E, #075E54);
+    transform: scale(1.08) translateY(-4px);
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+  }
+
+  .whatsapp-btn:active {
+    transform: scale(0.98) translateY(0);
   }
 
   .whatsapp-btn i {
-    margin-right: 8px;
-    font-size: 18px;
+    margin-right: 10px;
+    font-size: 22px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .whatsapp-btn span {
+    position: relative;
+    z-index: 1;
   }
 </style>
 
@@ -319,7 +345,7 @@
     .then(data => {
       if (data.success) {
         document.getElementById('mensajeProducto').textContent = 
-          `"${data.nombre_producto}" ha sido agregado a tu carrito.`;
+          `"${data.nombre_producto}" - Contacta al vendedor y obtén más información`;
         document.getElementById('numeroVendedor').textContent = data.numero_vendedor;
         
         // Crear enlace de WhatsApp

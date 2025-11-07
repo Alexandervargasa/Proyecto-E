@@ -25,3 +25,15 @@ class ImagenProducto(models.Model):
 
     def __str__(self):
         return f"Imagen de {self.producto.nombre}"
+
+class HistorialProducto(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='historial_productos')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='historial')
+    fecha_contacto = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-fecha_contacto']
+        unique_together = ['usuario', 'producto']
+    
+    def __str__(self):
+        return f"{self.usuario.username} - {self.producto.nombre}"

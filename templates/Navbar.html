@@ -23,10 +23,11 @@
     <ul>
       <li><a href="{% url 'discover' %}"><i class="fa-solid fa-compass"></i> Descubrir</a></li>
       <li><a href="{% url 'tendencias' %}"><i class="fa-solid fa-fire"></i> Tendencia</a></li>
-      <li><a href="#"><i class="fa-solid fa-gift"></i> Recompensas</a></li>
+      <li><a href="{% url 'recompensas' %}"><i class="fa-solid fa-gift"></i> Recompensas</a></li>
       
       {% if user.is_authenticated %}
       <li><a href="{% url 'agregar_producto' %}"><i class="fa-solid fa-plus-circle"></i> Añadir Productos</a></li>
+      <li><a href="{% url 'historial' %}"><i class="fa-solid fa-history"></i> Historial</a></li>
       {% endif %}
       
       {% if user.is_authenticated and user.perfil.es_admin %}
@@ -43,6 +44,11 @@
       <li>
         <a href="{% url 'login' %}" class="signin-btn">
           <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'register' %}" class="signin-btn register-btn">
+          <i class="fa-solid fa-user-plus"></i> Registrarse
         </a>
       </li>
       {% endif %}
@@ -195,6 +201,14 @@
   .signin-btn:hover {
     background: #036d4a;
     color: white;
+  }
+
+  .register-btn {
+    background: #0b8f65 !important;
+  }
+
+  .register-btn:hover {
+    background: #036d4a !important;
   }
 
   .logout-btn {

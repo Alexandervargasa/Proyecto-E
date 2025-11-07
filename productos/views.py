@@ -33,12 +33,20 @@ def tendencias(request):
     return render(request, 'tendencias.html', {'productos': productos})
 
 def agregar_al_carrito(request, producto_id):
-    """Incrementa el contador de clics y devuelve el número del vendedor - No requiere login"""
+    """Registra el interés en un producto y devuelve el número del vendedor - No requiere login"""
     producto = get_object_or_404(Producto, id=producto_id)
     
-    # Incrementar contador
+    # Incrementar contador de interés
     producto.clics_carrito += 1
     producto.save()
+    
+    # Si el usuario está autenticado, guardar en su historial
+    if request.user.is_authenticated:
+        from .models import HistorialProducto
+        HistorialProducto.objects.get_or_create(
+            usuario=request.user,
+            producto=producto
+        )
     
     return JsonResponse({
         'success': True,
@@ -128,6 +136,13 @@ def editar_producto(request, producto_id):
         'formset': formset,
         'producto': producto
     })
+
+@login_required
+def historial(request):
+    """Muestra el historial de productos contactados por el usuario"""
+    from .models import HistorialProducto
+    historial_productos = HistorialProducto.objects.filter(usuario=request.user).select_related('producto')
+    return render(request, 'historial.html', {'historial': historial_productos})
 
 @login_required
 def eliminar_producto(request, producto_id):
