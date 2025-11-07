@@ -85,7 +85,7 @@ def agregar_producto(request):
         form = ProductoForm()
         formset = ImagenFormSet(queryset=ImagenProducto.objects.none())
 
-    return render(request, 'AgregarProductos.html', {
+    return render(request, 'agregar_productos.html', {
         'form': form,
         'formset': formset
     })
