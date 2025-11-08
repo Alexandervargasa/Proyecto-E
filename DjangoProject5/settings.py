@@ -14,7 +14,7 @@ SECRET_KEY = config("SECRET_KEY", default="changeme")  # puedes mover también t
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 # Read ALLOWED_HOSTS from env to make deployments (Render/Heroku) configurable
-raw_allowed = config('ALLOWED_HOSTS', default='54.160.195.196,localhost,127.0.0.1,proyecto-e.onrender.com,.onrender.com')
+raw_allowed = config('ALLOWED_HOSTS', default='54.160.195.196,localhost,127.0.0.1,https://proyecto-e-1.onrender.com,.onrender.com')
 ALLOWED_HOSTS = [h.strip() for h in raw_allowed.split(',') if h.strip()]
 
 INSTALLED_APPS = [
