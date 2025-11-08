@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: proyecto-e
+    env: docker
+    branch: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    startCommand: bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn DjangoProject5.wsgi:application --bind 0.0.0.0:8000"
